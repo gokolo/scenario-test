@@ -8,13 +8,18 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/dashboard",
-    name: "UserDashboard",
+    name: "Dashboard",
     component: UserDashboard,
   },
   {
     path: "/login",
     name: "Login",
     component: () => import("../views/UserLogin.vue"),
+  },
+  {
+    path: "/apps/create",
+    name: "CreateApp",
+    component: () => import("../views/application/CreateApp.vue"),
   },
   { path: "*", redirect: "/dashboard" },
 ];

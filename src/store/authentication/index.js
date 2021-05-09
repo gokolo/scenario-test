@@ -24,6 +24,7 @@ const mutations = {
     state.user = payload;
   },
   unauthenticate(state) {
+    window.localStorage.clear();
     state.token = undefined;
     state.user = undefined;
   },

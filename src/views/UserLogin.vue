@@ -33,6 +33,12 @@
                     {{ loginErrorMessage }}
                   </div>
 
+                  <div class="text-center">
+                    <v-btn small text @click="forgotPassword()"
+                      >Forgot password?</v-btn
+                    >
+                  </div>
+
                   <div class="progress">
                     <v-progress-circular
                       :size="150"
@@ -105,6 +111,10 @@ export default {
             this.loginErrorMessage = "The email or password is incorrect.";
           });
       }
+    },
+
+    forgotPassword() {
+      console.log("Yes I forgot my password");
     },
   },
 };

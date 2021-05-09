@@ -19,8 +19,8 @@ export default {
 
   components: { TheHeader },
 
-  data: () => ({
-    //
-  }),
+  mounted() {
+    this.$store.dispatch("getPlans");
+  },
 };
 </script>

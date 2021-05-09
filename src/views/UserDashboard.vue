@@ -1,29 +1,51 @@
 <template>
-  <div>
-    <v-row justify="space-between">
-      <v-col cols="auto">
-        <h1>Overview</h1>
-      </v-col>
-      <v-col cols="auto">
-        <v-btn x-large color="success" dark> Create APP </v-btn>
+  <v-app>
+    <v-row justify="center" no-gutters class="">
+      <v-col md="8">
+        <v-row justify="space-between" class="mb-2">
+          <v-col cols="auto">
+            <h1>Overview</h1>
+          </v-col>
+          <v-col cols="auto">
+            <v-btn large color="primary" :to="'/apps/create'" dark>
+              Create APP
+            </v-btn>
+          </v-col>
+        </v-row>
+
+        <apps-table :apps="apps" />
       </v-col>
     </v-row>
-
-    <applications-table />
-  </div>
+  </v-app>
 </template>
 
 <script>
-import ApplicationsTable from "../components/application/ApplicationsTable.vue";
+import { mapGetters } from "vuex";
+import AppsTable from "../components/application/AppsTable.vue";
 export default {
   name: "Dashboard",
 
-  components: { ApplicationsTable },
+  components: { AppsTable },
+
+  mounted() {
+    this.initialize();
+  },
+
+  computed: {
+    ...mapGetters(["apps", "subscriptions"]),
+  },
 
   data: function () {
     return {
       title: "Dashboard",
     };
+  },
+
+  methods: {
+    initialize() {
+      this.$store.dispatch("getApps");
+      this.$store.dispatch("getSubscriptions");
+    },
   },
 };
 </script>
