@@ -1,10 +1,14 @@
 <template>
   <v-app>
-    <the-header />
-
-    <v-main>
+    <div v-if="$route.name != 'Login'">
+      <the-header />
+      <v-main class="mt-5">
+        <router-view />
+      </v-main>
+    </div>
+    <v-container v-else class="my-2">
       <router-view />
-    </v-main>
+    </v-container>
   </v-app>
 </template>
 

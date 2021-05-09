@@ -1,18 +1,14 @@
 <template>
-  <div>
-    <h1>{{ title }}</h1>
-  </div>
+  <h1>{{ title }}</h1>
 </template>
 
 <script>
 export default {
-  name: "Dashboard",
-
-  components: {},
+  name: "CreateApplicationForm",
 
   data: function () {
     return {
-      title: "Dashboard",
+      title: "CreateApplicationForm",
     };
   },
 };

@@ -4,11 +4,11 @@
 
 <script>
 export default {
-  name: "Login",
+  name: "PlanCard",
 
   data: function () {
     return {
-      title: "Login",
+      title: "PlanCard",
     };
   },
 };
