@@ -1,4 +1,5 @@
 import axios from "axios";
+import Vue from "vue";
 
 const BASE_URL = process.env.VUE_APP_BASE_URL + "/api/v1/";
 
@@ -59,7 +60,19 @@ const actions = {
     })
       .then((response) => {
         console.log("App updated", response.data);
-        // TODO ALERT
+        Vue.toasted.show(`App ${response.data.name} updated!`, {
+          theme: "outline",
+          position: "bottom-left",
+          duration: 3000,
+          type: "success",
+          icon: "mdi-check",
+          action: {
+            text: "Close",
+            onClick: (e, toastObject) => {
+              toastObject.goAway(0);
+            },
+          },
+        });
         let allApps = context.state.apps;
         context.commit("setApps", [
           ...allApps.filter((el) => el.id != payload.id),
@@ -68,6 +81,22 @@ const actions = {
       })
       .catch((error) => {
         console.log("Error in updating app:", error, error.data);
+        Vue.toasted.show(
+          "An error occured while updating app. Try again later..",
+          {
+            theme: "outline",
+            position: "bottom-left",
+            duration: 3000,
+            type: "error",
+            icon: "mdi-alert-circle-outline",
+            action: {
+              text: "Close",
+              onClick: (e, toastObject) => {
+                toastObject.goAway(0);
+              },
+            },
+          }
+        );
       });
   },
 
@@ -78,7 +107,19 @@ const actions = {
     })
       .then((response) => {
         console.log("App deleted", response.data);
-        // TODO ALERT
+        Vue.toasted.show("App deleted!", {
+          theme: "outline",
+          position: "bottom-left",
+          duration: 3000,
+          type: "info",
+          icon: "mdi-check",
+          action: {
+            text: "Close",
+            onClick: (e, toastObject) => {
+              toastObject.goAway(0);
+            },
+          },
+        });
         let allApps = context.state.apps;
         context.commit(
           "setApps",
@@ -86,7 +127,23 @@ const actions = {
         );
       })
       .catch((error) => {
-        console.log("Error in delete app:", error, error.data);
+        console.log("Error in delete app:", error, error.response);
+        Vue.toasted.show(
+          "An error occured while deleting app. Try again later..",
+          {
+            theme: "outline",
+            position: "bottom-left",
+            duration: 3000,
+            type: "error",
+            icon: "mdi-alert-circle-outline",
+            action: {
+              text: "Close",
+              onClick: (e, toastObject) => {
+                toastObject.goAway(0);
+              },
+            },
+          }
+        );
       });
   },
 };

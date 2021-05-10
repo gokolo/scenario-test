@@ -54,10 +54,10 @@ const actions = {
       url: `${BASE_URL}rest-auth/logout/`,
     });
   },
-  resetPassword(context, payload) {
+  resetPassword(context, email) {
     return axios({
       method: "POST",
-      data: payload,
+      data: { email: email },
       url: `${BASE_URL}rest-auth/password/reset/`,
     });
   },

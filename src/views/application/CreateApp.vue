@@ -29,9 +29,22 @@ export default {
       this.$store
         .dispatch("createApp", app)
         .then((response) => {
-          console.log("App crated", response.data);
+          console.log("App created", response.data);
+          this.$toasted.show(`App ${response.data.name} created`, {
+            theme: "outline",
+            position: "bottom-left",
+            duration: 3000,
+            type: "success",
+            icon: "mdi-check",
+            action: {
+              text: "Close",
+              onClick: (e, toastObject) => {
+                toastObject.goAway(0);
+              },
+            },
+          });
+
           this.$router.push(`/apps/${response.data.id}`);
-          // TODO ALERT
         })
         .catch((error) => {
           console.log("Error createApp:", error, error.data);

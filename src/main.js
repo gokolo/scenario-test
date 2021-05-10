@@ -4,8 +4,12 @@ import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
 import { axiosInterceptor } from "./utils/requestInterceptors";
+import Toasted from "vue-toasted";
 
 axiosInterceptor();
+Vue.use(Toasted, {
+  iconPack: "mdi",
+});
 
 Vue.config.productionTip = false;
 

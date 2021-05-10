@@ -31,8 +31,20 @@ export default {
     logoutUser() {
       this.logout()
         .then(() => {
+          this.$toasted.show("You have been succesfully logged out!", {
+            theme: "outline",
+            position: "bottom-left",
+            duration: 3000,
+            type: "info",
+            icon: "mdi-info",
+            action: {
+              text: "Close",
+              onClick: (e, toastObject) => {
+                toastObject.goAway(0);
+              },
+            },
+          });
           this.$router.push("/login");
-          // TODO ALERT
         })
         .catch((error) => {
           console.log("Error logging out:", error, error.data);

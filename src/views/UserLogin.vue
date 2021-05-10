@@ -34,7 +34,7 @@
                   </div>
 
                   <div class="text-center">
-                    <v-btn small text @click="forgotPassword()"
+                    <v-btn small text @click="resetPasswordDialog = true"
                       >Forgot password?</v-btn
                     >
                   </div>
@@ -58,6 +58,36 @@
         </v-row>
       </v-container>
     </v-main>
+
+    <v-row justify="center">
+      <v-dialog v-model="resetPasswordDialog" persistent max-width="490">
+        <v-card>
+          <v-card-title class="headline">
+            Forgotten your password?
+          </v-card-title>
+          <v-card-text
+            >Enter your e-mail address below, and we'll send you an e-mail
+            allowing you to reset it.
+
+            <v-form ref="resetPasswordForm" lazy-validation>
+              <v-text-field
+                v-model="resetPasswordEmail"
+                :rules="emailRules"
+                label="E-mail"
+                required
+              ></v-text-field>
+            </v-form>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" text @click="resetPassword()">
+              Reset Password
+            </v-btn>
+            <v-btn text @click="resetPasswordDialog = false"> Cancel </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-row>
   </v-app>
 </template>
 
@@ -78,6 +108,9 @@ export default {
       lazy: false,
       loginErrorMessage: null,
       loadingCirle: null,
+
+      resetPasswordDialog: false,
+      resetPasswordEmail: "",
     };
   },
   methods: {
@@ -113,8 +146,48 @@ export default {
       }
     },
 
-    forgotPassword() {
-      console.log("Yes I forgot my password");
+    resetPassword() {
+      if (this.$refs.resetPasswordForm.validate()) {
+        this.$store
+          .dispatch("resetPassword", this.resetPasswordEmail)
+          .then((response) => {
+            console.log("Success resetPassword:", response.data.detail);
+            this.resetPasswordDialog = false;
+            this.$toasted.show(response.data.detail, {
+              theme: "outline",
+              position: "bottom-left",
+              duration: 3000,
+              type: "success",
+              icon: "mdi-check",
+              action: {
+                text: "Close",
+                onClick: (e, toastObject) => {
+                  toastObject.goAway(0);
+                },
+              },
+            });
+          })
+          .catch((error) => {
+            console.log("Error resetPassword:", error.response);
+            let errorMsg =
+              error.response.status == 400
+                ? "The e-mail address is not assigned to any user account"
+                : "An error occured while resetting your password.";
+            this.$toasted.show(errorMsg, {
+              theme: "outline",
+              position: "bottom-left",
+              duration: 3000,
+              type: "error",
+              icon: "mdi-alert-circle-outline",
+              action: {
+                text: "Close",
+                onClick: (e, toastObject) => {
+                  toastObject.goAway(0);
+                },
+              },
+            });
+          });
+      }
     },
   },
 };
