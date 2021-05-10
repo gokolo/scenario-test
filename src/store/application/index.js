@@ -21,6 +21,14 @@ const mutations = {
 };
 
 const actions = {
+  getApp(context, id) {
+    return axios({
+      method: "GET",
+      data: {},
+      url: `${BASE_URL}apps/${id}/`,
+    });
+  },
+
   getApps(context) {
     axios({
       method: "GET",

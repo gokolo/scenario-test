@@ -32,6 +32,34 @@ const actions = {
         console.log("Error getSubscriptions:", error, error.data);
       });
   },
+
+  updateSubscription(context, payload) {
+    axios({
+      method: "PATCH",
+      data: payload,
+      url: `${BASE_URL}subscriptions/${payload.id}/`,
+    })
+      .then(() => {
+        context.dispatch("getSubscriptions");
+      })
+      .catch((error) => {
+        console.log("Error updateSubscription:", error, error.data);
+      });
+  },
+
+  createSubscription(context, payload) {
+    axios({
+      method: "POST",
+      data: payload,
+      url: `${BASE_URL}subscriptions/`,
+    })
+      .then(() => {
+        context.dispatch("getSubscriptions");
+      })
+      .catch((error) => {
+        console.log("Error updateSubscription:", error, error.data);
+      });
+  },
 };
 
 export default {

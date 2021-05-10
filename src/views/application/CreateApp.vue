@@ -30,7 +30,7 @@ export default {
         .dispatch("createApp", app)
         .then((response) => {
           console.log("App crated", response.data);
-          this.$router.push("Dashboard");
+          this.$router.push(`/apps/${response.data.id}`);
           // TODO ALERT
         })
         .catch((error) => {

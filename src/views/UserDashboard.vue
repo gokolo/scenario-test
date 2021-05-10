@@ -32,7 +32,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["apps", "subscriptions"]),
+    ...mapGetters(["apps"]),
   },
 
   data: function () {
@@ -45,6 +45,7 @@ export default {
     initialize() {
       this.$store.dispatch("getApps");
       this.$store.dispatch("getSubscriptions");
+      this.$store.dispatch("getPlans");
     },
   },
 };

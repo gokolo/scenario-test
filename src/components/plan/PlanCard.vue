@@ -6,9 +6,16 @@
       <p v-if="plan.price > 0">$ {{ plan.price }}</p>
     </v-card-text>
     <v-card-actions>
-      <v-btn width="100%" color="primary"> Select </v-btn>
+      <v-btn width="100%" v-if="isCurrentPlan" disabled> Current </v-btn>
 
-      <!-- <v-btn width="100%" disabled> Current </v-btn> -->
+      <v-btn
+        width="100%"
+        v-else
+        @click="$emit('selectPlan', { plan, currentSubscription, app })"
+        color="primary"
+      >
+        Select
+      </v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -22,6 +29,10 @@ export default {
       type: Object,
       required: true,
     },
+    app: {
+      type: Object,
+      required: true,
+    },
   },
 
   data: function () {
@@ -32,11 +43,17 @@ export default {
 
   computed: {
     ...mapGetters(["subscriptions"]),
-  },
-
-  methods: {
-    isActivePlan() {
-      console.log("isActivePlan");
+    isCurrentPlan() {
+      let subscription = this.subscriptions.find(
+        (el) => el.active && el.plan == this.plan.id && el.app == this.app.id
+      );
+      return Boolean(subscription);
+    },
+    currentSubscription() {
+      let subscription = this.subscriptions.find(
+        (el) => el.active && el.app == this.app.id
+      );
+      return subscription || null;
     },
   },
 };

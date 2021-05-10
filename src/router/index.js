@@ -21,6 +21,11 @@ const routes = [
     name: "CreateApp",
     component: () => import("../views/application/CreateApp.vue"),
   },
+  {
+    path: "/apps/:id",
+    name: "AppDetail",
+    component: () => import("../views/application/AppDetail.vue"),
+  },
   { path: "*", redirect: "/dashboard" },
 ];
 

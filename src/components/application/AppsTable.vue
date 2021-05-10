@@ -28,13 +28,24 @@
         <v-icon small @click="deleteApp(item)"> mdi-delete </v-icon>
       </template>
 
+      <template v-slot:[`item.name`]="{ item }">
+        <router-link :to="`apps/${item.id}`"> {{ item.name }}</router-link>
+      </template>
+
       <template v-slot:expanded-item="{ item }">
         <td class="pa-5" :colspan="100">
-          More info about {{ item.name }}
+          <p>
+            Change
+            <span class="font-weight-bold">{{ item.name }}</span> Subscription
+          </p>
+
           <v-row>
             <v-col v-for="plan in plans" :key="plan.id">
-              <!-- {{ plan }} -->
-              <plan-card :plan="plan" />
+              <plan-card
+                :plan="plan"
+                :app="item"
+                @selectPlan="handleSelectPlan"
+              />
             </v-col>
           </v-row>
         </td>
@@ -95,7 +106,7 @@ export default {
       ],
 
       expanded: [],
-      singleExpand: false,
+      singleExpand: true,
 
       selectedApp: null,
       editAppDialog: false,
@@ -127,6 +138,23 @@ export default {
     deleteApp(app) {
       console.log("delete app", app);
       this.$store.dispatch("deleteApp", app.id);
+    },
+
+    handleSelectPlan(payload) {
+      if (payload.currentSubscription) {
+        let subscription = {
+          ...payload.currentSubscription,
+          plan: payload.plan.id,
+        };
+        this.$store.dispatch("updateSubscription", subscription);
+      } else {
+        let subscription = {
+          app: payload.app.id,
+          plan: payload.plan.id,
+          active: true,
+        };
+        this.$store.dispatch("createSubscription", subscription);
+      }
     },
   },
 };

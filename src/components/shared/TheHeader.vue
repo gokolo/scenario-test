@@ -6,6 +6,10 @@
 
     <v-spacer></v-spacer>
 
+    <v-toolbar-title class="mr-2" v-if="user">{{
+      user.username
+    }}</v-toolbar-title>
+
     <v-btn @click="logoutUser" text>
       <span class="mr-2">Logout</span>
       <v-icon>mdi-power</v-icon>
@@ -14,9 +18,13 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "TheHeader",
+
+  computed: {
+    ...mapGetters(["user"]),
+  },
 
   methods: {
     ...mapActions(["logout"]),

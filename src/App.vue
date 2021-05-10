@@ -18,9 +18,5 @@ export default {
   name: "App",
 
   components: { TheHeader },
-
-  mounted() {
-    this.$store.dispatch("getPlans");
-  },
 };
 </script>
