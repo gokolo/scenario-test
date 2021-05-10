@@ -17,6 +17,11 @@ const routes = [
     component: () => import("../views/UserLogin.vue"),
   },
   {
+    path: "/register",
+    name: "Register",
+    component: () => import("../views/RegisterUser.vue"),
+  },
+  {
     path: "/apps/create",
     name: "CreateApp",
     component: () => import("../views/application/CreateApp.vue"),
@@ -34,7 +39,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ["Login"];
+  const publicPages = ["Login", "Register"];
   const authRequired = !publicPages.includes(to.name);
   const loggedIn = Boolean(Store.getters.user);
 

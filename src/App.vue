@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <div v-if="$route.name != 'Login'">
+    <div v-if="showHeader">
       <the-header />
       <v-main class="mt-5">
         <router-view />
@@ -18,5 +18,14 @@ export default {
   name: "App",
 
   components: { TheHeader },
+
+  computed: {
+    showHeader() {
+      if (this.$route.name == "Login" || this.$route.name == "Register") {
+        return false;
+      }
+      return true;
+    },
+  },
 };
 </script>

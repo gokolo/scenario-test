@@ -32,6 +32,13 @@
         <router-link :to="`apps/${item.id}`"> {{ item.name }}</router-link>
       </template>
 
+      <template v-slot:no-data>
+        <p class="mt-4">No apps yet..</p>
+        <v-btn class="mb-4" text color="primary" :to="'/apps/create'" dark>
+          Create APP
+        </v-btn>
+      </template>
+
       <template v-slot:expanded-item="{ item }">
         <td class="pa-5" :colspan="100">
           <p>
