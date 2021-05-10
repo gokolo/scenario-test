@@ -35,6 +35,17 @@
                 <v-btn color="primary" dark @click="signup"> Sign Up </v-btn>
                 <v-spacer />
               </v-card-actions>
+              <p class="text-center smallFont">
+                Already have an account?
+                <v-btn
+                  @click="$router.push('/login')"
+                  color="primary"
+                  class="textTransNone"
+                  x-small
+                  text
+                  >Login Now</v-btn
+                >
+              </p>
             </v-card>
           </v-col>
         </v-row>
@@ -104,5 +115,13 @@ export default {
   margin-left: -50px;
   width: 100px;
   height: 100px;
+}
+
+.smallFont {
+  font-size: 0.625rem;
+}
+
+.textTransNone {
+  text-transform: none;
 }
 </style>
